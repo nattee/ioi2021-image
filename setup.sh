@@ -14,7 +14,7 @@ error() {
 trap 'error ${LINENO}' ERR
 
 VERSION="test$(date +%m%d)"
-ANSIBLE_PASSWD=""
+ANSIBLE_PASSWD="ansible"
 
 if [ -f "config.local.sh" ]; then
 	source config.local.sh
@@ -23,7 +23,7 @@ fi
 # Fix up date/time
 
 timedatectl set-timezone Asia/Singapore
-vmware-toolbox-cmd timesync enable
+# vmware-toolbox-cmd timesync enable
 hwclock -w
 
 # Update packages
@@ -39,6 +39,10 @@ tasksel install ubuntu-desktop-minimal ubuntu-desktop-minimal-default-languages
 # Install tools needed for management and monitoring
 
 apt -y install net-tools openssh-server ansible xvfb tinc i3lock oathtool imagemagick
+
+# Install VirtualBox Guest Addition
+
+apt install virtualbox-guest-dkms virtualbox-guest-x11
 
 # Install packages needed by contestants
 
